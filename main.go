@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	combiArray := combination.MakeRoundRobinCombi(6)
+	combiArray := combination.MakeRoundRobinCombi(7)
 
 	for _, v := range combiArray {
 		fmt.Println(v)

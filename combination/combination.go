@@ -1,6 +1,8 @@
 package combination
 
-import "github.com/kami988/round-robin-time-table/array"
+import (
+	"github.com/kami988/round-robin-time-table/array"
+)
 
 const dummyVal = -1
 
@@ -38,7 +40,6 @@ func makeCombi(persons []int) [][][]int {
 		for i, v := range firstCombi {
 			combiArray[i] = append(combiArray[i], v...)
 		}
-
 		firstLen := len(firstCombi)
 		secondCombi := makeCombi(secondHalf)
 		for i, v := range secondCombi {
@@ -53,6 +54,11 @@ func makeCombi(persons []int) [][][]int {
 // {1, 2, dummyVal},
 // {3, 4, 5}
 func divideHalf(array []int) ([]int, []int) {
+	// 末尾のdummyValを削除
+	if array[len(array)-1] == dummyVal {
+		array = array[:len(array)-1]
+	}
+
 	// 偶数の場合、半分に割って取得
 	if len(array)%2 == 0 {
 		half := len(array) / 2
