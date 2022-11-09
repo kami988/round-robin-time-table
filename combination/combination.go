@@ -15,13 +15,10 @@ func makeCombi(persons []int) [][][]int {
 	combiArray := [][][]int{}
 	firstHalf, secondHalf := divideHalf(persons)
 
-	for fi, fv := range firstHalf {
-		if fv == dummyVal {
-			continue
-		}
+	for fi := 0; fi < len(firstHalf); fi++ {
 		passedValidation := false
-		for _, sv := range secondHalf {
-			if sv == dummyVal {
+		for si := 0; si < len(secondHalf); si++ {
+			if firstHalf[si] == dummyVal || secondHalf[si] == dummyVal {
 				continue
 			}
 			// 初期は配列長をを確保する
@@ -29,24 +26,34 @@ func makeCombi(persons []int) [][][]int {
 				passedValidation = true
 				combiArray = append(combiArray, [][]int{})
 			}
-			combiArray[fi] = append(combiArray[fi], []int{fv, sv})
+			combiArray[fi] = append(combiArray[fi], []int{firstHalf[si], secondHalf[si]})
 		}
 		secondHalf = array.Shift(secondHalf)
 	}
 
 	// 分割可能な場合、再起処理で組み合わせを生成する
 	if len(firstHalf) >= 2 { // secondHalfも同じ長さのため、どちらでも良い
+		// combiLen := len(combiArray) - 1
 		firstCombi := makeCombi(firstHalf)
-		for i, v := range firstCombi {
-			combiArray[i] = append(combiArray[i], v...)
-		}
-		firstLen := len(firstCombi)
 		secondCombi := makeCombi(secondHalf)
-		for i, v := range secondCombi {
-			combiArray[firstLen+i] = append(combiArray[firstLen+i], v...)
-		}
+		mergedCombi := mergeCombi(firstCombi, secondCombi)
+		// for i, v := range secondCombi {
+		// 	combiArray[combiLen+i] = append(combiArray[combiLen+i], v...)
+		// }
+		combiArray = append(combiArray, mergedCombi...)
 	}
 	return combiArray
+}
+
+func mergeCombi(firstCombi [][][]int, secondiCombi [][][]int) [][][]int {
+	mergedCombi := [][][]int{}
+	for fi, fv := range firstCombi {
+		mergedCombi = append(mergedCombi, append(fv, secondiCombi[fi]...))
+	}
+	for si := len(firstCombi); si < len(secondiCombi); si++ {
+		mergedCombi = append(mergedCombi, secondiCombi[si])
+	}
+	return mergedCombi
 }
 
 // 配列を2つのグループに分断する

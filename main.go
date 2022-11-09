@@ -7,9 +7,12 @@ import (
 )
 
 func main() {
-	combiArray := combination.MakeRoundRobinCombi(6)
+	combiArray := combination.MakeRoundRobinCombi(10)
 
 	for _, v := range combiArray {
-		fmt.Println(v)
+		for _, v2 := range v {
+			fmt.Printf("[%2d %2d] ", v2[0], v2[1])
+		}
+		fmt.Println()
 	}
 }
