@@ -9,9 +9,10 @@ func MakeIndexArray(len int) []int {
 	return array
 }
 
-// 配列を1つ分シフトする
-func Shift(array []int) []int {
-	lastIndex := len(array) - 1
-	res := []int{array[lastIndex]}
-	return append(res, array[:lastIndex]...)
+// 配列を1つ分左へシフトする
+func LeftShift(array []int) []int {
+	if len(array) < 2 {
+		return array
+	}
+	return append(array[1:], array[0])
 }
