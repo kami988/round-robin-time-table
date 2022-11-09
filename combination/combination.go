@@ -31,7 +31,7 @@ func makeCombi(persons []int) [][][]int {
 			}
 			combiArray[fi] = append(combiArray[fi], []int{fv, sv})
 		}
-		secondHalf = array.LeftShift(secondHalf)
+		secondHalf = array.Shift(secondHalf)
 	}
 
 	// 分割可能な場合、再起処理で組み合わせを生成する
