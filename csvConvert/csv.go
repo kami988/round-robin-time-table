@@ -3,6 +3,7 @@ package csvconvert
 import (
 	"encoding/csv"
 	"os"
+	"strconv"
 )
 
 func OutputCSV(filename string, combiArray [][][]int, persons []string) error {
@@ -19,20 +20,25 @@ func OutputCSV(filename string, combiArray [][][]int, persons []string) error {
 }
 
 func cnvRecords(combiArray [][][]int, persons []string) [][]string {
-	// あらかじめ配列長確保（ヘッダー分１行追加）
+	// あらかじめ配列長確保（ヘッダー分1行1列追加）
 	records := make([][]string, len(combiArray)+1)
 	for i := range records {
-		records[i] = make([]string, len(persons))
+		records[i] = make([]string, len(persons)+1)
 	}
 
 	// ヘッダー追加
-	copy(records[0], persons)
+	for i, name := range persons {
+		records[0][1+i] = name
+	}
 
 	for ci, combiLine := range combiArray {
+		// ヘッダー追加
+		records[1+ci][0] = strconv.Itoa(ci)
+
 		for pi := range persons {
 			for _, combi := range combiLine {
 				if sortedCombi := includePerson(combi, pi); sortedCombi != nil {
-					records[ci+1][pi] = persons[sortedCombi[0]] + " - " + persons[sortedCombi[1]]
+					records[1+ci][1+pi] = persons[sortedCombi[0]] + " - " + persons[sortedCombi[1]]
 				}
 			}
 		}
