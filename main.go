@@ -11,9 +11,10 @@ import (
 func main() {
 	persons, err := txt.ReadTxtLine("./persons.txt")
 	if err != nil {
-		fmt.Println(os.Stderr, err)
+		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+
 	combiArray := combination.MakeRoundRobinCombi(len(persons))
 
 	for _, v := range combiArray {
