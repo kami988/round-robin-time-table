@@ -7,13 +7,13 @@ import (
 
 func Test_mergeCombi(t *testing.T) {
 	type args struct {
-		firstCombi   [][][]int
-		secondiCombi [][][]int
+		firstCombi   [][][2]int
+		secondiCombi [][][2]int
 	}
 	tests := []struct {
 		name string
 		args args
-		want [][][]int
+		want [][][2]int
 	}{
 		{
 			name: "正常系 中身がnilの場合、空配列を返す",
@@ -21,42 +21,42 @@ func Test_mergeCombi(t *testing.T) {
 				firstCombi:   nil,
 				secondiCombi: nil,
 			},
-			want: [][][]int{},
+			want: [][][2]int{},
 		},
 		{
 			name: "正常系 中身が空の場合、そのまま返す",
 			args: args{
-				firstCombi:   [][][]int{},
-				secondiCombi: [][][]int{},
+				firstCombi:   [][][2]int{},
+				secondiCombi: [][][2]int{},
 			},
-			want: [][][]int{},
+			want: [][][2]int{},
 		},
 		{
 			name: "正常系 同じ長さの場合",
 			args: args{
-				firstCombi: [][][]int{
+				firstCombi: [][][2]int{
 					{{0, 1}, {2, 3}},
 				},
-				secondiCombi: [][][]int{
+				secondiCombi: [][][2]int{
 					{{4, 5}},
 				},
 			},
-			want: [][][]int{
+			want: [][][2]int{
 				{{0, 1}, {2, 3}, {4, 5}},
 			},
 		},
 		{
 			name: "正常系 secondCombiの長さが大きいの場合",
 			args: args{
-				firstCombi: [][][]int{
+				firstCombi: [][][2]int{
 					{{0, 1}, {2, 3}},
 				},
-				secondiCombi: [][][]int{
+				secondiCombi: [][][2]int{
 					{{4, 5}},
 					{{1, 3}, {0, 2}},
 				},
 			},
-			want: [][][]int{
+			want: [][][2]int{
 				{{0, 1}, {2, 3}, {4, 5}},
 				{{1, 3}, {0, 2}},
 			},

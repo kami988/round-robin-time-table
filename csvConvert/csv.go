@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func OutputCSV(filename string, combiArray [][][]int, persons []string) error {
+func OutputCSV(filename string, combiArray [][][2]int, persons []string) error {
 	records := cnvRecords(combiArray, persons)
 	f, err := os.Create(filename) // 書き込む先のファイル
 	if err != nil {
@@ -19,7 +19,7 @@ func OutputCSV(filename string, combiArray [][][]int, persons []string) error {
 	return nil
 }
 
-func cnvRecords(combiArray [][][]int, persons []string) [][]string {
+func cnvRecords(combiArray [][][2]int, persons []string) [][]string {
 	// あらかじめ配列長確保（ヘッダー分1行1列追加）
 	records := make([][]string, len(combiArray)+1)
 	for i := range records {
@@ -46,7 +46,7 @@ func cnvRecords(combiArray [][][]int, persons []string) [][]string {
 	return records
 }
 
-func includePerson(combi []int, personIndex int) []int {
+func includePerson(combi [2]int, personIndex int) []int {
 	for i, combiElement := range combi {
 		// 組み合わせに対象者が存在したとき
 		if combiElement == personIndex {

@@ -6,13 +6,13 @@ import (
 
 const dummyVal = -1
 
-func MakeRoundRobinCombi(len int) [][][]int {
+func MakeRoundRobinCombi(len int) [][][2]int {
 	persons := array.MakeIndexArray(len)
 	return makeCombi(persons)
 }
 
-func makeCombi(persons []int) [][][]int {
-	combiArray := [][][]int{}
+func makeCombi(persons []int) [][][2]int {
+	combiArray := [][][2]int{}
 	firstHalf, secondHalf := divideHalf(persons)
 
 	for fi := 0; fi < len(firstHalf); fi++ {
@@ -24,9 +24,9 @@ func makeCombi(persons []int) [][][]int {
 			// 初期は配列長をを確保する
 			if !passedValidation {
 				passedValidation = true
-				combiArray = append(combiArray, [][]int{})
+				combiArray = append(combiArray, [][2]int{})
 			}
-			combiArray[fi] = append(combiArray[fi], []int{firstHalf[si], secondHalf[si]})
+			combiArray[fi] = append(combiArray[fi], [2]int{firstHalf[si], secondHalf[si]})
 		}
 		secondHalf = array.Shift(secondHalf)
 	}
@@ -45,8 +45,8 @@ func makeCombi(persons []int) [][][]int {
 	return combiArray
 }
 
-func mergeCombi(firstCombi [][][]int, secondiCombi [][][]int) [][][]int {
-	mergedCombi := [][][]int{}
+func mergeCombi(firstCombi [][][2]int, secondiCombi [][][2]int) [][][2]int {
+	mergedCombi := [][][2]int{}
 
 	// firstCombiの方が長い場合は想定しない
 	for fi, fv := range firstCombi {
