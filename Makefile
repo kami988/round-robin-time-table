@@ -1,2 +1,2 @@
-run:
-	go run ./main.go
+build:
+	go build -o ./dist/round-robin-time-table ./main.go

@@ -37,9 +37,6 @@ func makeCombi(persons []int) [][][2]int {
 		firstCombi := makeCombi(firstHalf)
 		secondCombi := makeCombi(secondHalf)
 		mergedCombi := mergeCombi(firstCombi, secondCombi)
-		// for i, v := range secondCombi {
-		// 	combiArray[combiLen+i] = append(combiArray[combiLen+i], v...)
-		// }
 		combiArray = append(combiArray, mergedCombi...)
 	}
 	return combiArray

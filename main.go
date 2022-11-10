@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 
@@ -10,7 +11,13 @@ import (
 )
 
 func main() {
-	persons, err := txt.ReadTxtLine("./files/persons.txt")
+	var (
+		personsFilePath     = flag.String("i", "./files/persons.txt", "人物のリストファイル")
+		combinationFilePath = flag.String("o", "./files/combinations.csv", "人物のリストファイル")
+	)
+	flag.Parse()
+	// Set up a connection to the server.
+	persons, err := txt.ReadTxtLine(*personsFilePath)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
@@ -18,8 +25,11 @@ func main() {
 
 	combiArray := combination.MakeRoundRobinCombi(len(persons))
 
-	if err = csvconvert.OutputCSV("./files/combinations.csv", combiArray, persons); err != nil {
+	if err = csvconvert.OutputCSV(*combinationFilePath, combiArray, persons); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+	fmt.Println("Combination generation completed successfully.")
+	fmt.Println("input file path: ", *personsFilePath)
+	fmt.Println("output file path: ", *combinationFilePath)
 }
