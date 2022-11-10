@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	persons, err := txt.ReadTxtLine("./persons.txt")
+	persons, err := txt.ReadTxtLine("./files/persons.txt")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
