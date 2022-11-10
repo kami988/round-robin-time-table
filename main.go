@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/kami988/round-robin-time-table/combination"
+	csvconvert "github.com/kami988/round-robin-time-table/csvConvert"
 	"github.com/kami988/round-robin-time-table/txt"
 )
 
@@ -17,10 +18,8 @@ func main() {
 
 	combiArray := combination.MakeRoundRobinCombi(len(persons))
 
-	for _, v := range combiArray {
-		for _, v2 := range v {
-			fmt.Printf("[%2d %2d] ", v2[0], v2[1])
-		}
-		fmt.Println()
+	if err = csvconvert.OutputCSV("./files/combination.csv", combiArray, persons); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 }
