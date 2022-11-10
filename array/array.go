@@ -11,6 +11,9 @@ func MakeIndexArray(len int) []int {
 
 // 配列を1つシフトする
 func Shift(array []int) []int {
+	if len(array) == 0 {
+		return []int{}
+	}
 	lastIndex := len(array) - 1
 	res := []int{array[lastIndex]}
 	return append(res, array[:lastIndex]...)

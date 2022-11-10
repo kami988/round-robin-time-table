@@ -47,6 +47,8 @@ func makeCombi(persons []int) [][][]int {
 
 func mergeCombi(firstCombi [][][]int, secondiCombi [][][]int) [][][]int {
 	mergedCombi := [][][]int{}
+
+	// firstCombiの方が長い場合は想定しない
 	for fi, fv := range firstCombi {
 		mergedCombi = append(mergedCombi, append(fv, secondiCombi[fi]...))
 	}
