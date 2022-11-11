@@ -23,7 +23,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	combiArray := combination.MakeRoundRobinCombi(len(persons))
+	combiArray := combination.MakeSmartRoundRobinCombi(len(persons))
 
 	if err = csvconvert.OutputCSV(*combinationFilePath, combiArray, persons); err != nil {
 		fmt.Fprintln(os.Stderr, err)

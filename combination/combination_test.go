@@ -5,67 +5,44 @@ import (
 	"testing"
 )
 
-func Test_mergeCombi(t *testing.T) {
+func Test_rotatePersons(t *testing.T) {
 	type args struct {
-		firstCombi   [][][2]int
-		secondiCombi [][][2]int
+		firstHalf  []int
+		secondHalf []int
 	}
 	tests := []struct {
-		name string
-		args args
-		want [][][2]int
+		name  string
+		args  args
+		want  []int
+		want1 []int
 	}{
 		{
-			name: "正常系 中身がnilの場合、空配列を返す",
+			name: "正常系 配列長が3",
 			args: args{
-				firstCombi:   nil,
-				secondiCombi: nil,
+				firstHalf:  []int{0, 1, 2},
+				secondHalf: []int{3, 4, 5},
 			},
-			want: [][][2]int{},
+			want:  []int{0, 2, 5},
+			want1: []int{1, 3, 4},
 		},
 		{
-			name: "正常系 中身が空の場合、そのまま返す",
+			name: "正常系 配列長が4",
 			args: args{
-				firstCombi:   [][][2]int{},
-				secondiCombi: [][][2]int{},
+				firstHalf:  []int{0, 1, 2, 3, -1},
+				secondHalf: []int{4, 5, 6, 7, 8},
 			},
-			want: [][][2]int{},
-		},
-		{
-			name: "正常系 同じ長さの場合",
-			args: args{
-				firstCombi: [][][2]int{
-					{{0, 1}, {2, 3}},
-				},
-				secondiCombi: [][][2]int{
-					{{4, 5}},
-				},
-			},
-			want: [][][2]int{
-				{{0, 1}, {2, 3}, {4, 5}},
-			},
-		},
-		{
-			name: "正常系 secondCombiの長さが大きいの場合",
-			args: args{
-				firstCombi: [][][2]int{
-					{{0, 1}, {2, 3}},
-				},
-				secondiCombi: [][][2]int{
-					{{4, 5}},
-					{{1, 3}, {0, 2}},
-				},
-			},
-			want: [][][2]int{
-				{{0, 1}, {2, 3}, {4, 5}},
-				{{1, 3}, {0, 2}},
-			},
+			want:  []int{0, 2, 3, -1, 8},
+			want1: []int{1, 4, 5, 6, 7},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := mergeCombi(tt.args.firstCombi, tt.args.secondiCombi); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("mergeCombi() = %v, want %v", got, tt.want)
+			got, got1 := rotatePersons(tt.args.firstHalf, tt.args.secondHalf)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("rotatePersons() got = %v, want %v", got, tt.want)
+			}
+			if !reflect.DeepEqual(got1, tt.want1) {
+				t.Errorf("rotatePersons() got1 = %v, want %v", got1, tt.want1)
 			}
 		})
 	}
