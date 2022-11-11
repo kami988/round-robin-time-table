@@ -38,6 +38,8 @@ source ~/.bashrc
 一郎
 二郎
 三郎
+四郎
+五郎
 ```
 
 ### 実行
@@ -48,11 +50,14 @@ source ~/.bashrc
 go run main.go -i 人物リストファイルのパス -o 出力ファイルのパス
 ```
 
-### 組み合わせを Miro で付箋化
+![images/combinations.png](images/combinations.png)
+
+### 組み合わせを Miro で付箋として貼り付け
 
 以下の手順のようにスプレッドシートを仲介してコピペすることで、各セルを付箋として貼り付けることができます。
 
 1. 出力した CSV ファイルをスプレッドシートにインポート
-2. スプレッドシートでセルを範囲選択し、コピーする
-3. Miro でペーストする
-   https://help.miro.com/hc/article_attachments/4809489511442/cells_as_sticky_notes_in_Miro.gif
+2. スプレッドシートでセルを範囲選択コピーし、Miro でペーストする
+   [![copy&paste](https://help.miro.com/hc/article_attachments/4809489511442/cells_as_sticky_notes_in_Miro.gif)](https://help.miro.com/hc/ja/articles/360017572054-%E4%BB%98%E7%AE%8B)
+3. 付箋を横長に変更（一括で最大 30 個変更可能）
+   [![sizeChange](https://help.miro.com/hc/article_attachments/4809323688466/convert_a_sticky_note.jpg)](https://help.miro.com/hc/ja/articles/360017572054-%E4%BB%98%E7%AE%8B)
