@@ -12,11 +12,11 @@ import (
 
 func main() {
 	var (
-		personsFilePath     = flag.String("i", "./files/persons.txt", "人物のリストファイル")
-		combinationFilePath = flag.String("o", "./files/combinations.csv", "人物のリストファイル")
+		personsFilePath     = flag.String("i", "./files/persons.txt", "人物のリストファイルのパス")
+		combinationFilePath = flag.String("o", "./files/combinations.csv", "出力ファイル（CSV）のパス")
 	)
 	flag.Parse()
-	// Set up a connection to the server.
+
 	persons, err := txt.ReadTxtLine(*personsFilePath)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -33,7 +33,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Println("Input file path: ", *personsFilePath)
-	fmt.Println("Output file path: ", *combinationFilePath)
-	fmt.Println("Combination generation completed successfully.")
+	fmt.Println("入力ファイルパス: ", *personsFilePath)
+	fmt.Println("出力ファイルパス: ", *combinationFilePath)
+	fmt.Println("組み合わせの生成に成功したにゃ！")
 }
