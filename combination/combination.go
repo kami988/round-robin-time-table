@@ -6,14 +6,14 @@ import (
 
 const dummyVal = -1
 
-func MakeSmartRoundRobinCombi(len int) [][][2]int {
+func MakeRoundRobinCombi(len int) [][][2]int {
 	persons := array.MakeIndexArray(len)
-	return makeSmartCombi(persons)
+	return makeCombi(persons)
 }
 
-func makeSmartCombi(persons []int) [][][2]int {
+func makeCombi(persons []int) [][][2]int {
 	combiArray := make([][][2]int, len(persons), len(persons)+2)
-	firstHalf, secondHalf := smartDivideHalf(persons)
+	firstHalf, secondHalf := divideAlterHalf(persons)
 	for i := range combiArray {
 		for j := 0; j < len(firstHalf); j++ {
 			if firstHalf[j] == dummyVal || secondHalf[j] == dummyVal {
@@ -21,8 +21,6 @@ func makeSmartCombi(persons []int) [][][2]int {
 			}
 			combiArray[i] = append(combiArray[i], [2]int{firstHalf[j], secondHalf[j]})
 		}
-		// fmt.Println(firstHalf, secondHalf)
-		// fmt.Println(combiArray[i])
 		firstHalf, secondHalf = rotatePersons(firstHalf, secondHalf)
 	}
 	return combiArray
@@ -32,6 +30,10 @@ func rotatePersons(firstHalf []int, secondHalf []int) ([]int, []int) {
 	// 謎にメモリバグが起きて、firstHalfとsecondHalfのメモリが共用されるため再確保する
 	secondHalf = append([]int{}, secondHalf...)
 
+	if len(firstHalf) < 2 {
+		return secondHalf, firstHalf
+	}
+
 	lastSecondIndex := len(secondHalf) - 1
 	firstHalf = append(firstHalf, secondHalf[lastSecondIndex])
 	secondHalf = append([]int{firstHalf[1]}, secondHalf...)
@@ -39,7 +41,7 @@ func rotatePersons(firstHalf []int, secondHalf []int) ([]int, []int) {
 	return firstHalf[1:], secondHalf[:lastSecondIndex+1]
 }
 
-func smartDivideHalf(array []int) ([]int, []int) {
+func divideAlterHalf(array []int) ([]int, []int) {
 	oddArray := []int{}
 	evenArray := []int{}
 	for i := range array {
