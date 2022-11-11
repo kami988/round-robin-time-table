@@ -22,6 +22,10 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+	if len(persons) < 3 {
+		fmt.Fprintln(os.Stderr, "Must be 3 or more.")
+		os.Exit(1)
+	}
 
 	combiArray := combination.MakeRoundRobinCombi(len(persons))
 
@@ -30,6 +34,6 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Println("Combination generation completed successfully.")
-	fmt.Println("input file path: ", *personsFilePath)
-	fmt.Println("output file path: ", *combinationFilePath)
+	fmt.Println("Input file path: ", *personsFilePath)
+	fmt.Println("Output file path: ", *combinationFilePath)
 }
