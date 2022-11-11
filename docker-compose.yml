@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  dev-maker-go:
+    build: ./
+    volumes:
+      - "maker-go.repo:/repo"
+    tty: true
+
+volumes:
+  maker-go.repo:
