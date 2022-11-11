@@ -33,7 +33,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Println("Combination generation completed successfully.")
 	fmt.Println("Input file path: ", *personsFilePath)
 	fmt.Println("Output file path: ", *combinationFilePath)
+	fmt.Println("Combination generation completed successfully.")
 }

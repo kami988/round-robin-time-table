@@ -8,7 +8,13 @@ const dummyVal = -1
 
 func MakeRoundRobinCombi(len int) [][][2]int {
 	persons := array.MakeIndexArray(len)
-	return makeCombi(persons)
+	combiArray := makeCombi(persons)
+
+	// 人数が奇数の場合は休憩順が最後の人からになるようソート
+	if len%2 == 1 {
+		combiArray = sortCombi(combiArray)
+	}
+	return combiArray
 }
 
 func makeCombi(persons []int) [][][2]int {
@@ -55,4 +61,28 @@ func divideAlterHalf(array []int) ([]int, []int) {
 		oddArray = append(oddArray, dummyVal)
 	}
 	return evenArray, oddArray
+}
+
+// 休憩する人が最後の人から順番になるようにソート
+func sortCombi(combiArray [][][2]int) [][][2]int {
+	// 休憩する人を特定
+	idSum := make([]int, len(combiArray))
+	maxSum := 0
+	for i, combis := range combiArray {
+		for _, combi := range combis {
+			for _, personID := range combi {
+				idSum[i] += personID
+			}
+		}
+		if maxSum < idSum[i] {
+			maxSum = idSum[i]
+		}
+	}
+
+	sortedCombi := make([][][2]int, len(combiArray))
+	lastCombisIndex := len(combiArray) - 1
+	for i, combis := range combiArray {
+		sortedCombi[lastCombisIndex-(maxSum-idSum[i])] = combis
+	}
+	return sortedCombi
 }
